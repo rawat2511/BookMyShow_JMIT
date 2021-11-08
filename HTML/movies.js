@@ -3,8 +3,10 @@ var region = "ncr";
 region= JSON.parse(localStorage.getItem("regionName"));
 console.log(region);
 var getMovies=(params)=>{
-    return fetch(`http://localhost:3000/movies?region_like=${params}`)
+    // return fetch(`http://localhost:3000/movies?region_like=${params}`)
+    return fetch(`db.json`)
     .then(res=>res.json())
+    .then(res => res.movies )
     .catch(e=>console.log(error))
 }
 var fetchMovies=async(filter)=>{
@@ -12,6 +14,7 @@ var fetchMovies=async(filter)=>{
         let query=await createParam(region,filter)
        
         let result=await getMovies(query)
+        console.log( "results = ", result );
         displayMovies(result)
     }
     catch(e){
